@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+    <head>
+        <style>
+            body {
+                background-image: url('background.jpg');
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-attachment: fixed;
+                display: flex;
+            }
+            section {
+                color: black;
+                margin: auto;
+            }
+            input{
+                font-size: 20px;
+                color: green;
+            }
+            fieldset {
+                background-color: orange;
+            }
+            ul {
+                font-size: 30px;
+                border: 1cm;
+                border-color: black;
+                margin: auto;
+            }
+        </style>
+
+    </head>
+    <body>
+        <section class="container">
+            <form id="my-form">
+                <fieldset>
+                    <h1 style="text-align:center;">Book a call</h1>
+                    <p style="text-align:center;">Book a call slot and our representative will call you in that slot</p>
+                    <label for="name"">Name:</label>
+                    <br>
+                    <input type="text" id="name" placeholder="Full name" name="name" style="width: 600px;" >
+                    <br>
+                    <label for="email">Email:</label>
+                    <br>
+                    <input type="text" id="email" placeholder="someone@example.com" name="email" style="width: 600px;" >
+                    <br>
+                    <label for="phone">Phone:</label>
+                    <br>
+                    <input type="text" id="phone" placeholder="123456789" name="phone" style="width: 600px;" >
+                    <br>
+                    <label for="call">Time for call:</label>
+                    <br>
+                    <input type="date" id="calldate" placeholder="31/10/2022" name="date" min="2022-11-01" style="width: 300px;" >
+                    <input type="time" id="calltime" placeholder="9:00" name="time" style="width: 293px;" >
+                    <br>
+                    <br>
+                    <input type="submit" value="Get a Call" style="background-color: red; color: black; width: 607px; border-color: orange;">
+                </fieldset>
+            </form>
+            <fieldset>
+                <ul id="customers"></ul>
+                <ul class="items">
+                    <li class="item">Item 1</li>
+                    <li class="item">Item 2</li>
+                    <li class="item">Item 3</li>
+                </ul>
+            </fieldset>
+        </section>
+    <script src="index.js">
+    </script>
+    </body>
+
+</html>

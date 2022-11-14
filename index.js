@@ -51,49 +51,44 @@ function showlist(){
 }
 
 function appendlist(obj){
-  let text = obj.name + " " + obj.emailid;
-//   let newelement = `<li class="list-group-item" id="${obj._id}"> ${text} 
-//                         <button class="btn btn-danger btn-sm float-right delete">delete</button>
-//                         <button class="btn btn-default btn-sm float-right edit">edit</button> 
-//                     </li>`
-  var li = document.createElement('li');
-//   li.innerHTML = newelement;
-li.className = 'list-group-item';
+    let text = obj.name + " " + obj.emailid;
+    var li = document.createElement('li');
+    //   li.innerHTML = newelement;
+    li.className = 'list-group-item';
 
-li.id = obj._id;
-// Add text node with input value
-li.appendChild(document.createTextNode(text));
-///
+    li.id = obj._id;
+    // Add text node with input value
+    li.appendChild(document.createTextNode(text));
+    ///
 
-// Create del button element
-var deleteBtn = document.createElement('button');
+    // Create del button element
+    var deleteBtn = document.createElement('button');
 
-// Add classes to del button
-deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
+    // Add classes to del button
+    deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
 
-// Append text node
-deleteBtn.appendChild(document.createTextNode('X'));
+    // Append text node
+    deleteBtn.appendChild(document.createTextNode('X'));
 
-// Append button to li
-li.appendChild(deleteBtn);
+    // Append button to li
+    li.appendChild(deleteBtn);
 
-///
+    ///
 
-// create edit button element
-var editBtn = document.createElement('button');
+    // create edit button element
+    var editBtn = document.createElement('button');
 
-// Add classes to edit button
-editBtn.className = 'btn btn-default btn-sm float-right edit';
+    // Add classes to edit button
+    editBtn.className = 'btn btn-default btn-sm float-right edit';
 
- // Append text node
- editBtn.appendChild(document.createTextNode('Edit'));
+    // Append text node
+    editBtn.appendChild(document.createTextNode('Edit'));
 
- // Append button to li
-  li.appendChild(editBtn);
+    // Append button to li
+    li.appendChild(editBtn);
 
-
-  // Append li to list
-  itemList.appendChild(li);
+    // Append li to list
+    itemList.appendChild(li);
 }
 
 
@@ -123,10 +118,11 @@ function removeItem(e){
         let URL = `https://crudcrud.com/api/392ddf094f374650ba84ef186aa86dbc/appointmentData/${obj1._id}`
         axios.delete(URL).then(res => console.log(res)).catch(err => console.log(err));
         let obj = localStorage.getItem(li.id);
+        obj = JSON.parse(obj);
         localStorage.removeItem(li.id);
         itemList.remove(li);
         document.getElementById('name').value = obj.name;
-        document.getElementById('email').value = obj.email;
+        document.getElementById('email').value = obj.emailid;
         document.querySelector("#phone").value = obj.phone;
         document.querySelector("#calldate").value = obj.calldate;
         document.querySelector("#calltime").value = obj.calltime;

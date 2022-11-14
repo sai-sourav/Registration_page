@@ -42,6 +42,12 @@ function onsubmit(event){
     let myobj_serialized = JSON.stringify(myobj);
     localStorage.setItem("user"+myobj.name,myobj_serialized);
     showlist();
+    document.getElementById('name').value = " ";
+    document.getElementById('email').value = " ";
+    document.querySelector("#phone").value = " ";
+    document.querySelector("#calldate").value = " ";
+    document.querySelector("#calltime").value = " ";
+
 }
 
 
@@ -125,9 +131,13 @@ function removeItem(e){
         let fullname = arr.join(' ')
         // delete element
         itemList.removeChild(li);
+        let obj = localStorage.getItem("user"+fullname)
         localStorage.removeItem("user"+fullname)
-        document.getElementById('name').value = fullname;
-        document.getElementById('email').value = email;
+        document.getElementById('name').value = obj.name;
+        document.getElementById('email').value = obj.email;
+        document.querySelector("#phone").value = obj.phone;
+        document.querySelector("#calldate").value = obj.calldate;
+        document.querySelector("#calltime").value = obj.calltime;
     }
   }
 

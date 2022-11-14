@@ -9,7 +9,7 @@ myform.addEventListener('submit', onsubmit);
 // on reload
 window.addEventListener('DOMContentLoaded', showlist);
 
-let URL = "https://crudcrud.com/api/01b0f4624a0f46669087aa9d338c9910/appointmentData";
+let URL = "https://crudcrud.com/api/72f6a677cefc4bb1aee0b54070f0f913/appointmentData";
 
 function onsubmit(event){
     event.preventDefault();
@@ -26,26 +26,21 @@ function onsubmit(event){
         "calldate" : calldate,
         "calltime" : calltime
       })
-        .then (res => console.log(res))
+        .then (res => {
+            console.log(res);
+            showlist();
+        })
         .catch (err => console.log(err));
-    // save them on local storage
-    showlist();
 
 }
 
-// function refreshlocalstorage(obj) {
-//     let string_obj = JSON.stringify(obj);
-//     localStorage.setItem(obj._id,string_obj);
-// }
 
-
-async function  showlist(){
+function  showlist(){
     itemList.innerHTML = "";
-    await axios.get(URL)
+    axios.get(URL)
     .then(response => {
         for(let i = 0; i< response.data.length; i++){
             appendlist(response.data[i]);
-            // refreshlocalstorage(response.data[i]);
         }
     })
 
@@ -103,27 +98,27 @@ function removeItem(e){
         itemList.removeChild(li);
       }
     }
-  }
+}
   
-  // Edit item
-  function editItem(e){
-    if(e.target.classList.contains('edit')){
-        const itemList = document.getElementById("items");
-        var li = e.target.parentElement;
-        let URL1 = `${URL}/${li.id}`
-        axios.get(URL1)
-        .then(resp => {
-            console.log(resp.data)
-            document.getElementById('name').value = resp.data.name;
-            document.getElementById('email').value = resp.data.emailid;
-            document.querySelector("#phone").value = resp.data.phone;
-            document.querySelector("#calldate").value = resp.data.calldate;
-            document.querySelector("#calltime").value = resp.data.calltime;
-            axios.delete(URL1).then(res => console.log(res)).catch(err => console.log(err));
-            itemList.remove(li);
-        })
-        
-    }
-  }
+// Edit item
+function editItem(e){
+if(e.target.classList.contains('edit')){
+    const itemList = document.getElementById("items");
+    var li = e.target.parentElement;
+    let URL1 = `${URL}/${li.id}`
+    axios.get(URL1)
+    .then(resp => {
+        console.log(resp.data)
+        document.getElementById('name').value = resp.data.name;
+        document.getElementById('email').value = resp.data.emailid;
+        document.querySelector("#phone").value = resp.data.phone;
+        document.querySelector("#calldate").value = resp.data.calldate;
+        document.querySelector("#calltime").value = resp.data.calltime;
+        axios.delete(URL1).then(res => console.log(res)).catch(err => console.log(err));
+        itemList.remove(li);
+    })
+    
+}
+}
 
 

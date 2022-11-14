@@ -111,13 +111,18 @@ function removeItem(e){
         const itemList = document.getElementById("items");
         var li = e.target.parentElement;
         let URL1 = `${URL}/${li.id}`
-        axios.delete(URL1).then(res => console.log(res)).catch(err => console.log(err));
-        itemList.remove(li);
-        document.getElementById('name').value = obj.name;
-        document.getElementById('email').value = obj.emailid;
-        document.querySelector("#phone").value = obj.phone;
-        document.querySelector("#calldate").value = obj.calldate;
-        document.querySelector("#calltime").value = obj.calltime;
+        axios.get(URL1)
+        .then(resp => {
+            console.log(resp.data)
+            document.getElementById('name').value = resp.data.name;
+            document.getElementById('email').value = resp.data.emailid;
+            document.querySelector("#phone").value = resp.data.phone;
+            document.querySelector("#calldate").value = resp.data.calldate;
+            document.querySelector("#calltime").value = resp.data.calltime;
+            axios.delete(URL1).then(res => console.log(res)).catch(err => console.log(err));
+            itemList.remove(li);
+        })
+        
     }
   }
 

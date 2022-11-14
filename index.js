@@ -9,6 +9,8 @@ myform.addEventListener('submit', onsubmit);
 // on reload
 window.addEventListener('DOMContentLoaded', showlist);
 
+let URL = "https://crudcrud.com/api/01b0f4624a0f46669087aa9d338c9910/appointmentData";
+
 function onsubmit(event){
     event.preventDefault();
     // save on crud crud server change it every 24 hrs
@@ -17,7 +19,7 @@ function onsubmit(event){
     const phone = document.querySelector("#phone").value;
     const calldate = document.querySelector("#calldate").value;
     const calltime = document.querySelector("#calltime").value;
-    axios.post('https://crudcrud.com/api/392ddf094f374650ba84ef186aa86dbc/appointmentData/',{
+    axios.post(`${URL}/`,{
         "name": name,
         "emailid": email,
         "phone" : phone,
@@ -40,7 +42,7 @@ function refreshlocalstorage(obj) {
 function showlist(){
     itemList.innerHTML = "";
     localStorage.clear();
-    axios.get('https://crudcrud.com/api/392ddf094f374650ba84ef186aa86dbc/appointmentData')
+    axios.get(URL)
     .then(response => {
         for(let i = 0; i< response.data.length; i++){
             appendlist(response.data[i]);
@@ -53,7 +55,6 @@ function showlist(){
 function appendlist(obj){
     let text = obj.name + " " + obj.emailid;
     var li = document.createElement('li');
-    //   li.innerHTML = newelement;
     li.className = 'list-group-item';
 
     li.id = obj._id;
@@ -100,8 +101,8 @@ function removeItem(e){
         var li = e.target.parentElement;
         let obj_string = localStorage.getItem(li.id);
         let obj = JSON.parse(obj_string);
-        let URL = `https://crudcrud.com/api/392ddf094f374650ba84ef186aa86dbc/appointmentData/${obj._id}`
-        axios.delete(URL).then(res => console.log(res)).catch(err => console.log(err));
+        let URL1 = `${URL}/${obj._id}`
+        axios.delete(URL1).then(res => console.log(res)).catch(err => console.log(err));
         localStorage.removeItem(li.id);
         itemList.removeChild(li);
       }
@@ -112,13 +113,10 @@ function removeItem(e){
   function editItem(e){
     if(e.target.classList.contains('edit')){
         var li = e.target.parentElement;
-        // delete element
-        let obj_string = localStorage.getItem(li.id);
-        let obj1 = JSON.parse(obj_string);
-        let URL = `https://crudcrud.com/api/392ddf094f374650ba84ef186aa86dbc/appointmentData/${obj1._id}`
-        axios.delete(URL).then(res => console.log(res)).catch(err => console.log(err));
         let obj = localStorage.getItem(li.id);
         obj = JSON.parse(obj);
+        let URL1 = `${URL}/${obj._id}`
+        axios.delete(URL1).then(res => console.log(res)).catch(err => console.log(err));
         localStorage.removeItem(li.id);
         itemList.remove(li);
         document.getElementById('name').value = obj.name;

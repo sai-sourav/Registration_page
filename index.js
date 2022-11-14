@@ -33,20 +33,19 @@ function onsubmit(event){
 
 }
 
-function refreshlocalstorage(obj) {
-    let string_obj = JSON.stringify(obj);
-    localStorage.setItem(obj._id,string_obj);
-}
+// function refreshlocalstorage(obj) {
+//     let string_obj = JSON.stringify(obj);
+//     localStorage.setItem(obj._id,string_obj);
+// }
 
 
-function showlist(){
+async function  showlist(){
     itemList.innerHTML = "";
-    localStorage.clear();
-    axios.get(URL)
+    await axios.get(URL)
     .then(response => {
         for(let i = 0; i< response.data.length; i++){
             appendlist(response.data[i]);
-            refreshlocalstorage(response.data[i]);
+            // refreshlocalstorage(response.data[i]);
         }
     })
 
@@ -99,11 +98,8 @@ function removeItem(e){
       if(confirm('Are You Sure?')){
         const itemList = document.getElementById("items");
         var li = e.target.parentElement;
-        let obj_string = localStorage.getItem(li.id);
-        let obj = JSON.parse(obj_string);
-        let URL1 = `${URL}/${obj._id}`
+        let URL1 = `${URL}/${li.id}`
         axios.delete(URL1).then(res => console.log(res)).catch(err => console.log(err));
-        localStorage.removeItem(li.id);
         itemList.removeChild(li);
       }
     }
@@ -112,12 +108,10 @@ function removeItem(e){
   // Edit item
   function editItem(e){
     if(e.target.classList.contains('edit')){
+        const itemList = document.getElementById("items");
         var li = e.target.parentElement;
-        let obj = localStorage.getItem(li.id);
-        obj = JSON.parse(obj);
-        let URL1 = `${URL}/${obj._id}`
+        let URL1 = `${URL}/${li.id}`
         axios.delete(URL1).then(res => console.log(res)).catch(err => console.log(err));
-        localStorage.removeItem(li.id);
         itemList.remove(li);
         document.getElementById('name').value = obj.name;
         document.getElementById('email').value = obj.emailid;

@@ -9,7 +9,7 @@ myform.addEventListener('submit', onsubmit);
 // on reload
 window.addEventListener('DOMContentLoaded', showlist);
 
-let URL = "https://crudcrud.com/api/72f6a677cefc4bb1aee0b54070f0f913/appointmentData";
+let URL = "http://localhost:4000";
 
 function onsubmit(event){
     event.preventDefault();
@@ -19,7 +19,7 @@ function onsubmit(event){
     const phone = document.querySelector("#phone").value;
     const calldate = document.querySelector("#calldate").value;
     const calltime = document.querySelector("#calltime").value;
-    axios.post(`${URL}/`,{
+    axios.post(`${URL}/save`,{
         "name": name,
         "emailid": email,
         "phone" : phone,
@@ -37,7 +37,7 @@ function onsubmit(event){
 
 function  showlist(){
     itemList.innerHTML = "";
-    axios.get(URL)
+    axios.get(`${URL}/`)
     .then(response => {
         for(let i = 0; i< response.data.length; i++){
             appendlist(response.data[i]);
